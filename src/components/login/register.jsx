@@ -35,7 +35,7 @@ const Register = () => {
                     <input type="tel" name="telefono" placeholder="Teléfono" value={registro.telefono} onChange={handleChange} required />
                     <button type="submit">Registrarse</button>
                 </form>
-                <button onClick={() => navigate("/login")}>Iniciar Sesión</button>
+                <button onClick={() => navigate("/login")}>Iniciar Sesion</button>
                 <button onClick={() => navigate("/loginadmin")}>Iniciar Sesión como Admin</button>
         </div>
     );
