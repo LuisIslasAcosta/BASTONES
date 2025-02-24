@@ -29,7 +29,7 @@ const LoginAdmin = () => {
           },
         })
         .then((userResponse) => {
-          navigate("/dashboard");
+          navigate("/DashboardAdmin");
         })
         .catch((error) => {
           setError("Hubo un error al obtener la información del usuario.");

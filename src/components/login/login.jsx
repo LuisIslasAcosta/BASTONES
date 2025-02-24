@@ -38,7 +38,7 @@ const Login = () => {
         <input type="password" name="password" placeholder="Password" value={usuario.password} onChange={handleChange} required />
         <button type="submit">Iniciar sesión</button>
       </form>
-      <button onClick={() => navigate("/loginadmin")}>Iniciar sesión como Admin</button>
+      <button onClick={() => navigate("/login-admin")}>Iniciar sesión como Admin</button>
       <button onClick={() => navigate("/")}>Crear Cuenta</button>
     </div>
   );
