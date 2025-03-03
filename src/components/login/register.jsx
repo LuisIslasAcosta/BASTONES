@@ -36,7 +36,6 @@ const Register = () => {
                     <button type="submit">Registrarse</button>
                 </form>
                 <button onClick={() => navigate("/login")}>Iniciar Sesion</button>
-                <button onClick={() => navigate("/loginadmin")}>Iniciar Sesión como Admin</button>
         </div>
     );
 };
