@@ -12,7 +12,7 @@ const Usuarios = () => {
     const [mostrarUsuarios, setMostrarUsuarios] = useState(false);
 
     const obtenerUsuarios = () => {
-        axios.get("http://localhost:3000/api/usuarios/")
+        axios.get("http://localhost:3000/api/usuarios/")  
             .then(response => {
                 setUsuarios(response.data);
                 setMostrarUsuarios(true);
@@ -43,6 +43,28 @@ const Usuarios = () => {
         setMostrarUsuarios(false);
     };
 
+    const irAEditar = (id) => {
+        navigate(`/usuarios/editar/${id}`);
+    };
+
+    const handleDelete = (id) => {
+        axios.delete(`http://localhost:3000/api/usuarios/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`, // Si es necesario un token de autenticación
+            },
+            })
+            .then((response) => {
+            console.log('Usuario eliminado:', response.data);
+            // Refresca la lista de usuarios después de eliminar
+            obtenerUsuarios();
+            })
+            .catch((error) => {
+            console.error('Error al eliminar el usuario:', error);
+            alert('Error al eliminar el usuario');
+            });
+        };
+        
+
     return (
         <div>
             {!mostrarUsuarios ? (
@@ -60,6 +82,7 @@ const Usuarios = () => {
                                     <th>Email</th>
                                     <th>Teléfono</th>
                                     <th>Rol</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,6 +92,10 @@ const Usuarios = () => {
                                         <td>{user.email}</td>
                                         <td>{user.telefono}</td>
                                         <td>{user.rol_id}</td>
+                                        <td>
+                                            <button onClick={() => irAEditar(user.id)} className="edit-btn">Editar</button>
+                                            <button onClick={() => handleDelete(user.id)} className="delete-btn">Eliminar</button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

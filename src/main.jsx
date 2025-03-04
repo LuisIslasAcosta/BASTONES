@@ -6,6 +6,7 @@ import Login from './components/login/login';
 import ProtectedRoute from "./components/loginadmin/ProtectedRoute"; 
 import DashboardAdmin from './components/Dashborn/DashboardAdmin'
 import Welcome from "./components/Principal/Welcome";
+import UsuariosEdit from "./components/Dashborn/UsuariosEdit";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -13,6 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/" element={<Home />} />
       <Route path="/register/:id" element={<Register />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/usuarios/editar/:id" element={<UsuariosEdit />} />
       <Route path="/DashboardAdmin" element={
         <ProtectedRoute>
           <DashboardAdmin /> 
