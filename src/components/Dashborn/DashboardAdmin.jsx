@@ -1,8 +1,22 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "../../style/style.css";
+import UsuariosGrafico from "./UsuariosGrafico";
 
 const DashboardAdmin = () => {
     const navigate = useNavigate();
+    const [usuarios, setUsuarios] = useState([]);
+
+    useEffect(() => {
+        obtenerUsuarios();
+    }, []);
+
+    const obtenerUsuarios = () => {
+        axios.get("http://localhost:3000/api/usuarios/")
+            .then(response => setUsuarios(response.data))
+            .catch(error => console.error("Error al obtener usuarios:", error));
+    };
 
     const handleLogout = () => {
         localStorage.removeItem("token");
@@ -25,6 +39,12 @@ const DashboardAdmin = () => {
                     <h1>Bastones</h1>
                     <button onClick={() => navigate("/bastones")} className="navigate-btn">Ver Bastones</button>
                 </div>
+            </div>
+
+            {/* Mostrar gráfico de usuarios */}
+            <div className="grafico-container">
+                <h2>Gráfico de Usuarios</h2>
+                <UsuariosGrafico usuarios={usuarios} /> {/* Pasar los usuarios al gráfico */}
             </div>
 
             <div className="logout-container">
