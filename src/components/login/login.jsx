@@ -18,11 +18,26 @@ const Login = () => {
 
     try {
       const response = await axios.post("http://localhost:3000/api/login", usuario);
-      alert("Inicio de sesión exitoso");
-      localStorage.setItem("token", response.data.token);
-      navigate("/welcome");
+
+      // Verificamos si la respuesta contiene el token
+      if (response.data.token) {
+        alert("Inicio de sesión exitoso");
+
+        // Guardamos el token en el localStorage
+        localStorage.setItem("token", response.data.token);
+
+        // Redirigimos a la página de bienvenida
+        navigate("/welcome");
+      } else {
+        setError("Error: No se obtuvo un token. Intenta nuevamente.");
+      }
     } catch (error) {
-      setError("Hubo un error al iniciar sesión. Verifica tus credenciales.");
+      // Verificamos si el error es por credenciales incorrectas o algún otro error
+      if (error.response && error.response.status === 401) {
+        setError("Credenciales incorrectas. Por favor, verifica tu email y contraseña.");
+      } else {
+        setError("Hubo un error al iniciar sesión. Verifica tus credenciales.");
+      }
       console.error(error);
     }
   };
@@ -31,7 +46,7 @@ const Login = () => {
     <div className="login-container">
       <div className="image-container">
         <h2>Bienvenido a Technology Vicion</h2>
-        <img src="../../../public/img/logo.png" alt="Login" className="login-image" />
+        <img src="/img/logo.png" alt="Login" className="login-image" />
       </div>
       <div className="divider"></div>
       <form onSubmit={handleSubmit} className="login-form">
@@ -44,6 +59,7 @@ const Login = () => {
           value={usuario.email} 
           onChange={handleChange} 
           required 
+          className="small-input" 
         />
         <input 
           type="password" 
@@ -52,6 +68,7 @@ const Login = () => {
           value={usuario.password} 
           onChange={handleChange} 
           required 
+          className="small-input" 
         />
         <button type="submit">Iniciar sesión</button>
       </form>

@@ -7,6 +7,8 @@ import ProtectedRoute from "./components/loginadmin/ProtectedRoute";
 import DashboardAdmin from './components/Dashborn/DashboardAdmin'
 import Welcome from "./components/Principal/Welcome";
 import UsuariosEdit from "./components/Dashborn/UsuariosEdit";
+import Bastones from "./components/Dashborn/Bastones";
+import Usuarios from "./components/Dashborn/Usuarios"; // Importar el componente Usuarios
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -15,6 +17,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/register/:id" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/usuarios/editar/:id" element={<UsuariosEdit />} />
+      <Route path="/bastones" element={<Bastones />} />
+      <Route path="/usuarios" element={<Usuarios />} /> {/* Nueva ruta para Usuarios */}
       <Route path="/DashboardAdmin" element={
         <ProtectedRoute>
           <DashboardAdmin /> 
