@@ -24,7 +24,7 @@ const Login = () => {
 
     return (
         <div>
-            <h1>Bienvenido a nuestra aplicacion {usuario ? usuario : ''}!</h1>
+            <h1>Bienvenido a nuetsro sistema para bastones inteligentes {usuario ? usuario : ''}!</h1>
             <button onClick={handleLogout} className="logout-btn">Cerrar sesión</button>
         </div>
     );

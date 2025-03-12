@@ -8,7 +8,8 @@ import DashboardAdmin from './components/Dashborn/DashboardAdmin'
 import Welcome from "./components/Principal/Welcome";
 import UsuariosEdit from "./components/Dashborn/UsuariosEdit";
 import Bastones from "./components/Dashborn/Bastones";
-import Usuarios from "./components/Dashborn/Usuarios"; // Importar el componente Usuarios
+import Usuarios from "./components/Dashborn/Usuarios"; 
+import Ubicaciones from "./components/Principal/Ubicaciones";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/Welcome" element={
         <ProtectedRoute>
           <Welcome />  
+          <Ubicaciones />
         </ProtectedRoute>
       } />
     </Routes>
