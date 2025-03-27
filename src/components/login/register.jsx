@@ -23,6 +23,7 @@ const Register = () => {
         .then(() => alert("Usuario registrado exitosamente"))
         .catch(error => console.error("Error al registrar usuario:", error));
     };
+    
 
     return (
         <div>
