@@ -17,11 +17,11 @@ const Login = () => {
     setError(""); // Limpiar error previo
   
     try {
-      const response = await axios.post("https://18.224.58.2/usuario/login", usuario);
+      const response = await axios.post("https://3.148.234.248/usuario/login", usuario);
       console.log(response.data); // Verifica la respuesta del servidor.
       if (response.status === 200 && response.data.message === "Login exitoso") {
         alert("Inicio de sesión exitoso");
-        
+
         
         // Almacenar el token y los datos del usuario con las claves correctas
         localStorage.setItem("token", response.data.access_token);
