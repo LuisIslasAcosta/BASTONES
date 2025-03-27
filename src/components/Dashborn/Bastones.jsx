@@ -16,7 +16,7 @@ const Bastones = () => {
 
     const fetchBastones = async () => {
         try {
-            const response = await axios.get("https://ec2-18-224-58-2.us-east-2.compute.amazonaws.com/bastones/bastones", {
+            const response = await axios.get("https://18.224.58.2/bastones/bastones", {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -31,7 +31,7 @@ const Bastones = () => {
     const handleDelete = async (id) => {
         try {
             // Eliminar bastón
-            await axios.delete(`https://ec2-18-224-58-2.us-east-2.compute.amazonaws.com/bastones/${id}`, {
+            await axios.delete(`https://18.224.58.2/bastones/${id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
