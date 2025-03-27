@@ -19,7 +19,7 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post("https://ec2-18-224-58-2.us-east-2.compute.amazonaws.com/usuario/", registro)
+        axios.post("http://ec2-18-224-58-2.us-east-2.compute.amazonaws.com/usuario/", registro)
         .then(() => alert("Usuario registrado exitosamente"))
         .catch(error => console.error("Error al registrar usuario:", error));
     };
