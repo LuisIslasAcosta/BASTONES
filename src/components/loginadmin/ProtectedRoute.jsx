@@ -1,36 +1,28 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import PropTypes from 'prop-types';  // Importa PropTypes
+import { Navigate } from "react-router-dom";  
 
-const ProtectedRoute = ({ children }) => {
-  const navigate = useNavigate();
+const ProtectedRoute = ({ children, allowedRoles }) => {
   const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    } else {
-      axios.get("http://localhost:3000/api/usuario-info", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        const { rol_id } = response.data;
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
 
-        if (rol_id === 1) {
-          navigate("/DashboardAdmin");
-        } else if (rol_id === 2) {
-          navigate("/Welcome");
-        }
-      })
-      .catch(() => {
-        navigate("/login");
-      });
-    }
-  }, [navigate, token]);
+  if (allowedRoles && !allowedRoles.includes(role)) {
+    return <Navigate to="/welcome" replace />;
+  }
 
   return children;
 };
 
+
+// Añadir validación de propiedades
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,  // 'children' puede ser cualquier tipo de nodo React (componente, texto, etc.)
+  allowedRoles: PropTypes.arrayOf(PropTypes.string).isRequired  // 'allowedRoles' es un arreglo de strings
+};
+
 export default ProtectedRoute;
+
+

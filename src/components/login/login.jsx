@@ -14,30 +14,31 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-
+    setError(""); // Limpiar error previo
+  
     try {
-      const response = await axios.post("http://localhost:3000/api/login", usuario);
-
-      // Verificamos si la respuesta contiene el token
-      if (response.data.token) {
+      const response = await axios.post("http://127.0.0.1:5000/usuario/login", usuario);
+      console.log(response.data); // Verifica la respuesta del servidor.
+      if (response.status === 200 && response.data.message === "Login exitoso") {
         alert("Inicio de sesión exitoso");
+        
+        // Almacenar el token y los datos del usuario con las claves correctas
+        localStorage.setItem("token", response.data.access_token);
+        localStorage.setItem("role", response.data.usuario.rol_nombre); // Guardamos el rol directamente
 
-        // Guardamos el token en el localStorage
-        localStorage.setItem("token", response.data.token);
-
-        // Redirigimos a la página de bienvenida
-        navigate("/welcome");
+        // Verificar si el rol es admin y redirigir
+        const rol = response.data.usuario.rol_nombre;
+        if (rol === "admin") {
+          navigate("/DashboardAdmin");
+        } else {
+          navigate("/Welcome");
+        }
       } else {
-        setError("Error: No se obtuvo un token. Intenta nuevamente.");
+        setError("Error: No se obtuvo una respuesta válida del servidor.");
       }
+
     } catch (error) {
-      // Verificamos si el error es por credenciales incorrectas o algún otro error
-      if (error.response && error.response.status === 401) {
-        setError("Credenciales incorrectas. Por favor, verifica tu email y contraseña.");
-      } else {
-        setError("Hubo un error al iniciar sesión. Verifica tus credenciales.");
-      }
+      setError("Hubo un error al iniciar sesión. Verifica tus credenciales.");
       console.error(error);
     }
   };
@@ -45,7 +46,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="image-container">
-        <h2>Bienvenido a Technology Vicion</h2>
+        <h2>Bienvenido a Technology Vision</h2>
         <img src="/img/logo.png" alt="Login" className="login-image" />
       </div>
       <div className="divider"></div>

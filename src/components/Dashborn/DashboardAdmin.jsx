@@ -13,7 +13,7 @@ const DashboardAdmin = () => {
     }, []);
 
     const obtenerUsuarios = () => {
-        axios.get("http://localhost:3000/api/usuarios/")
+        axios.get("http://127.0.0.1:5000/usuario/obtener")
             .then(response => setUsuarios(response.data))
             .catch(error => console.error("Error al obtener usuarios:", error));
     };
