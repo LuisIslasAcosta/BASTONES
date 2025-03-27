@@ -17,7 +17,7 @@ const Login = () => {
     setError(""); // Limpiar error previo
   
     try {
-      const response = await axios.post("http://127.0.0.1:5000/usuario/login", usuario);
+      const response = await axios.post("ec2-18-224-58-2.us-east-2.compute.amazonaws.com/usuario/login", usuario);
       console.log(response.data); // Verifica la respuesta del servidor.
       if (response.status === 200 && response.data.message === "Login exitoso") {
         alert("Inicio de sesión exitoso");
