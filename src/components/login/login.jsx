@@ -22,6 +22,7 @@ const Login = () => {
       if (response.status === 200 && response.data.message === "Login exitoso") {
         alert("Inicio de sesión exitoso");
         
+        
         // Almacenar el token y los datos del usuario con las claves correctas
         localStorage.setItem("token", response.data.access_token);
         localStorage.setItem("role", response.data.usuario.rol_nombre); // Guardamos el rol directamente
