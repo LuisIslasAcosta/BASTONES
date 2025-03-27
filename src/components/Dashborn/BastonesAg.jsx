@@ -16,7 +16,7 @@ const AgregarBaston = () => {
             return;
         }
 
-        axios.post("http://localhost:5000/bastones/create_baston", {
+        axios.post("https://ec2-18-224-58-2.us-east-2.compute.amazonaws.com/bastones/create_baston", {
             nombre: nombre 
         }, {
             headers: {
