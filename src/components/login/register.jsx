@@ -17,23 +17,55 @@ const Register = () => {
         setRegistro({ ...registro, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        axios.post("https://3.148.234.248/usuario/", registro)
-        .then(() => alert("Usuario registrado exitosamente"))
-        .catch(error => console.error("Error al registrar usuario:", error));
+        try {
+            // Realiza la solicitud a la API sin deshabilitar SSL en el frontend
+            const response = await axios.post("https://3.148.234.248/usuario/", registro);
+            alert("Usuario registrado exitosamente");
+            console.log(response.data);
+        } catch (error) {
+            console.error("Error al registrar usuario:", error);
+        }
     };
-
 
     return (
         <div>
-            <form onSubmit={handleSubmit}> 
-                <h1>Crear Nuevo Usuario</h1> 
-                <input type="text" name="nombre" placeholder="Nombre" value={registro.nombre} onChange={handleChange} required />
-                <input type="email" name="email" placeholder="Email" value={registro.email} onChange={handleChange} required />
-                <input type="password" name="password" placeholder="Password" value={registro.password} onChange={handleChange} required />
-                <input type="tel" name="telefono" placeholder="Teléfono" value={registro.telefono} onChange={handleChange} required />
-                
+            <form onSubmit={handleSubmit}>
+                <h1>Crear Nuevo Usuario</h1>
+                <input
+                    type="text"
+                    name="nombre"
+                    placeholder="Nombre"
+                    value={registro.nombre}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={registro.email}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={registro.password}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="tel"
+                    name="telefono"
+                    placeholder="Teléfono"
+                    value={registro.telefono}
+                    onChange={handleChange}
+                    required
+                />
+
                 <button type="submit">Registrarse</button>
             </form>
             <button onClick={() => navigate("/login")}>Iniciar Sesión</button>
