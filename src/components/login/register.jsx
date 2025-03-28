@@ -19,7 +19,7 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post("https://3.148.234.248/usuario/", registro)
+        axios.post("https://18.224.58.2/usuario/", registro)
         .then(() => alert("Usuario registrado exitosamente"))
         .catch(error => console.error("Error al registrar usuario:", error));
     };

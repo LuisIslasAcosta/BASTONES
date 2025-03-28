@@ -16,7 +16,7 @@ const AgregarBaston = () => {
             return;
         }
 
-        axios.post("https://3.148.234.248/bastones/create_baston", {
+        axios.post("https://18.224.58.2/bastones/create_baston", {
             nombre: nombre 
         }, {
             headers: {
