@@ -21,7 +21,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("https://3.148.234.248/usuario/", registro, {
+            const response = await axios.post("http://3.148.234.248/usuario/", registro, {
                 httpsAgent: new https.Agent({ rejectUnauthorized: false }) // Ignorar SSL solo en desarrollo
             });
 
