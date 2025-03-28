@@ -13,7 +13,7 @@ const AsignarBaston = () => {
     useEffect(() => {
         const fetchUsuarios = async () => {
             try {
-                const response = await axios.get("https://18.224.58.2/usuario/obtener", {
+                const response = await axios.get("https://18.191.42.64/usuario/obtener", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`, // Si es necesario, incluir el token
                     }
@@ -27,7 +27,7 @@ const AsignarBaston = () => {
 
         const fetchBastones = async () => {
             try {
-                const response = await axios.get("https://18.224.58.2/bastones/bastones", {
+                const response = await axios.get("https://18.191.42.64/bastones/bastones", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`, // Si es necesario, incluir el token
                     }
@@ -57,7 +57,7 @@ const AsignarBaston = () => {
         };
 
         try {
-            await axios.post("https://18.224.58.2/bastones/asignar_baston", data, {
+            await axios.post("https://18.191.42.64/bastones/asignar_baston", data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,  // Si necesitas token de autorización
                 }
