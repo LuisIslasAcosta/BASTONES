@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import https from "https"; // Importar el módulo para manejar SSL en Node.js
 import "../../style/style.css";
 
 const Register = () => {
@@ -20,11 +21,20 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Realiza la solicitud a la API sin deshabilitar SSL en el frontend
-            const response = await axios.post("https://3.148.234.248/usuario/", registro);
+            const response = await axios.post("https://3.148.234.248/usuario/", registro, {
+                httpsAgent: new https.Agent({ rejectUnauthorized: false }) // Ignorar SSL solo en desarrollo
+            });
+
             alert("Usuario registrado exitosamente");
             console.log(response.data);
         } catch (error) {
+            if (error.code === "ERR_NETWORK") {
+                alert("Error de red: No se pudo conectar con el servidor. Verifica la conexión.");
+            } else if (error.response) {
+                alert(`Error ${error.response.status}: ${error.response.data.message || "Error desconocido"}`);
+            } else {
+                alert("Ocurrió un error inesperado.");
+            }
             console.error("Error al registrar usuario:", error);
         }
     };
