@@ -1,91 +1,45 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../../style/style.css";
-
-// Esto es solo para desarrollo local
-import https from "https"; // Para agregar un agente personalizado
 
 const Login = () => {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
-  const handleChange = (e) => {
-    setUsuario({ ...usuario, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setUsuario({ ...usuario, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError(""); // Limpiar error previo
-  
-    // Crear un agente que deshabilite la verificación del certificado SSL
-    const agent = new https.Agent({  
-      rejectUnauthorized: false, // No verificar el certificado SSL
-    });
+    setError("");
 
-    try {
-      const response = await axios.post("https://3.143.223.115/usuario/login", usuario, { httpsAgent: agent });
-      console.log(response.data); // Verifica la respuesta del servidor.
-      if (response.status === 200 && response.data.message === "Login exitoso") {
+    axios.post("http://localhost:3000/api/login", usuario)
+      .then((response) => {
         alert("Inicio de sesión exitoso");
 
-        // Almacenar el token y los datos del usuario con las claves correctas
-        localStorage.setItem("token", response.data.access_token);
-        localStorage.setItem("role", response.data.usuario.rol_nombre); // Guardamos el rol directamente
+        const token = response.data.token;
+        localStorage.setItem("token", token);
 
-        // Verificar si el rol es admin y redirigir
-        const rol = response.data.usuario.rol_nombre;
-        if (rol === "admin") {
-          navigate("/DashboardAdmin");
-        } else {
-          navigate("/Welcome");
-        }
-      } else {
-        setError("Error: No se obtuvo una respuesta válida del servidor.");
-      }
-
-    } catch (error) {
-      setError("Hubo un error al iniciar sesión. Verifica tus credenciales.");
-      console.error(error);
-    }
+        navigate("/welcome");
+      })
+      .catch((error) => {
+        setError("Hubo un error al iniciar sesión. Verifica tus credenciales.");
+        console.error(error);
+      });
   };
 
   return (
-    <div className="login-container">
-      <div className="image-container">
-        <h2>Bienvenido a Technology Vision</h2>
-        <img src="/img/logo.png" alt="Login" className="login-image" />
-      </div>
-      <div className="divider"></div>
-      <form onSubmit={handleSubmit} className="login-form">
+    <div>
+      <form onSubmit={handleSubmit}>
         <h1>Login</h1>
-        {error && <p className="error-message">{error}</p>}
-        <input 
-          type="email" 
-          name="email" 
-          placeholder="Email" 
-          value={usuario.email} 
-          onChange={handleChange} 
-          required 
-          className="small-input" 
-        />
-        <input 
-          type="password" 
-          name="password" 
-          placeholder="Password" 
-          value={usuario.password} 
-          onChange={handleChange} 
-          required 
-          className="small-input" 
-        />
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <input type="email" name="email" placeholder="Email" value={usuario.email} onChange={handleChange} required />
+        <input type="password" name="password" placeholder="Password" value={usuario.password} onChange={handleChange} required />
         <button type="submit">Iniciar sesión</button>
       </form>
-      <div className="button-group">
-        <button onClick={() => navigate("/")} className="register-button">
-          Crear Cuenta
-        </button>
-      </div>
+      <button onClick={() => navigate("/login-admin")}>Iniciar sesión como Admin</button>
+      <button onClick={() => navigate("/")}>Crear Cuenta</button>
     </div>
   );
 };
