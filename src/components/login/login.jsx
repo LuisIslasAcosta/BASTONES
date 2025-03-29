@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../style/style.css";
 
+// Esto es solo para desarrollo local
+import https from "https"; // Para agregar un agente personalizado
+
 const Login = () => {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState({ email: "", password: "" });
@@ -16,13 +19,17 @@ const Login = () => {
     e.preventDefault();
     setError(""); // Limpiar error previo
   
+    // Crear un agente que deshabilite la verificación del certificado SSL
+    const agent = new https.Agent({  
+      rejectUnauthorized: false, // No verificar el certificado SSL
+    });
+
     try {
-      const response = await axios.post("https://18.191.42.64/usuario/login", usuario);
+      const response = await axios.post("https://18.191.42.64/usuario/login", usuario, { httpsAgent: agent });
       console.log(response.data); // Verifica la respuesta del servidor.
       if (response.status === 200 && response.data.message === "Login exitoso") {
         alert("Inicio de sesión exitoso");
 
-        
         // Almacenar el token y los datos del usuario con las claves correctas
         localStorage.setItem("token", response.data.access_token);
         localStorage.setItem("role", response.data.usuario.rol_nombre); // Guardamos el rol directamente
