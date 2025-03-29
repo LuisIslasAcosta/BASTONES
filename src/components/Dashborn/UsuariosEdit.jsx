@@ -10,7 +10,7 @@ const UsuariosEdit = () => {
 
     useEffect(() => {
         // Obtener los datos del usuario
-        axios.get(`https://18.191.42.64/usuario/${id}`)
+        axios.get(`https://3.143.223.115/usuario/${id}`)
             .then(response => {
                 setUser(response.data);
             })
@@ -28,7 +28,7 @@ const UsuariosEdit = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`https://18.191.42.64/usuario/${id}`, user, {
+        axios.put(`https://3.143.223.115/usuario/${id}`, user, {
             headers: {
                 Authorization: `Bearer ${token}` // Enviar el token JWT en las cabeceras
             }

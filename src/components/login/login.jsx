@@ -25,7 +25,7 @@ const Login = () => {
     });
 
     try {
-      const response = await axios.post("https://18.191.42.64/usuario/login", usuario, { httpsAgent: agent });
+      const response = await axios.post("https://3.143.223.115/usuario/login", usuario, { httpsAgent: agent });
       console.log(response.data); // Verifica la respuesta del servidor.
       if (response.status === 200 && response.data.message === "Login exitoso") {
         alert("Inicio de sesión exitoso");

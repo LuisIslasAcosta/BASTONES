@@ -13,7 +13,7 @@ const DashboardAdmin = () => {
     }, []);
 
     const obtenerUsuarios = () => {
-        axios.get("https://18.191.42.64/usuario/obtener")
+        axios.get("https://3.143.223.115/usuario/obtener")
             .then(response => setUsuarios(response.data))
             .catch(error => console.error("Error al obtener usuarios:", error));
     };

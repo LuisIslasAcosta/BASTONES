@@ -29,7 +29,7 @@ const Register = () => {
         });
 
         // Usamos el agente en la solicitud axios
-        axios.post("https://18.191.42.64/usuario/", registro, { httpsAgent: agent })
+        axios.post("https://3.143.223.115/usuario/", registro, { httpsAgent: agent })
             .then(() => alert("Usuario registrado exitosamente"))
             .catch(error => {
                 console.error("Error al registrar usuario:", error);
