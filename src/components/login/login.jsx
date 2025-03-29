@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../../style/style.css";
 
 const Login = () => {
@@ -8,38 +8,76 @@ const Login = () => {
   const [usuario, setUsuario] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
-  const handleChange = (e) => setUsuario({ ...usuario, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setUsuario({ ...usuario, [e.target.name]: e.target.value });
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-
-    axios.post("http://localhost:3000/api/login", usuario)
-      .then((response) => {
+    setError(""); // Limpiar error previo
+  
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/usuario/login", usuario);
+      console.log(response.data); // Verifica la respuesta del servidor.
+      if (response.status === 200 && response.data.message === "Login exitoso") {
         alert("Inicio de sesión exitoso");
+        
+        // Almacenar el token y los datos del usuario con las claves correctas
+        localStorage.setItem("token", response.data.access_token);
+        localStorage.setItem("role", response.data.usuario.rol_nombre); // Guardamos el rol directamente
 
-        const token = response.data.token;
-        localStorage.setItem("token", token);
+        // Verificar si el rol es admin y redirigir
+        const rol = response.data.usuario.rol_nombre;
+        if (rol === "admin") {
+          navigate("/DashboardAdmin");
+        } else {
+          navigate("/Welcome");
+        }
+      } else {
+        setError("Error: No se obtuvo una respuesta válida del servidor.");
+      }
 
-        navigate("/welcome");
-      })
-      .catch((error) => {
-        setError("Hubo un error al iniciar sesión. Verifica tus credenciales.");
-        console.error(error);
-      });
+    } catch (error) {
+      setError("Hubo un error al iniciar sesión. Verifica tus credenciales.");
+      console.error(error);
+    }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="login-container">
+      <div className="image-container">
+        <h2>Bienvenido a Technology Vision</h2>
+        <img src="/img/logo.png" alt="Login" className="login-image" />
+      </div>
+      <div className="divider"></div>
+      <form onSubmit={handleSubmit} className="login-form">
         <h1>Login</h1>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <input type="email" name="email" placeholder="Email" value={usuario.email} onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" value={usuario.password} onChange={handleChange} required />
+        {error && <p className="error-message">{error}</p>}
+        <input 
+          type="email" 
+          name="email" 
+          placeholder="Email" 
+          value={usuario.email} 
+          onChange={handleChange} 
+          required 
+          className="small-input" 
+        />
+        <input 
+          type="password" 
+          name="password" 
+          placeholder="Password" 
+          value={usuario.password} 
+          onChange={handleChange} 
+          required 
+          className="small-input" 
+        />
         <button type="submit">Iniciar sesión</button>
       </form>
-      <button onClick={() => navigate("/login-admin")}>Iniciar sesión como Admin</button>
-      <button onClick={() => navigate("/")}>Crear Cuenta</button>
+      <div className="button-group">
+        <button onClick={() => navigate("/")} className="register-button">
+          Crear Cuenta
+        </button>
+      </div>
     </div>
   );
 };
