@@ -25,7 +25,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post("https://echopath.zapto.org/usuario/login", usuario);
+      const response = await axios.post("https://18.216.27.227/usuario/login", usuario);
 
       if (response.status === 200 && response.data.message === "Login exitoso") {
         alert("Inicio de sesión exitoso");
