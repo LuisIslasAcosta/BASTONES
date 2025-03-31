@@ -21,7 +21,7 @@ const Register = () => {
         e.preventDefault();
         try {
             // Asegúrate de que la URL sea correcta
-            const response = await axios.post("http://127.0.0.1:5000/usuario/", registro);
+            const response = await axios.post("https://3.12.166.140/usuario/", registro);
             alert("Usuario registrado exitosamente");
             console.log(response.data);  // Muestra la respuesta del servidor
         } catch (error) {
