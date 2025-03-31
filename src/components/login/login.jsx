@@ -17,10 +17,9 @@ const Login = () => {
     setError(""); // Limpiar error previo
   
     try {
-      const response = await axios.post("https://18.216.27.227/usuario/login", usuario, {
-        httpsAgent: new https.Agent({ rejectUnauthorized: false })
-      });
-      
+      const response = await axios.post("https://18.216.27.227/usuario/login", usuario)
+      .then(response => console.log(response))
+      .catch(error => console.error(error));
       console.log(response.data); // Verifica la respuesta del servidor.
       if (response.status === 200 && response.data.message === "Login exitoso") {
         alert("Inicio de sesión exitoso");

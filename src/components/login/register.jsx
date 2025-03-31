@@ -53,7 +53,7 @@ const Usuarios = () => {
     
             console.log("📂 Datos leídos del Excel:", jsonData);
     
-            axios.post("http://localhost:3000/api/importacion", { usuarios: jsonData }) // Enviar como objeto con clave 'usuarios'
+            axios.post("http://18.216.27.227/api/importacion", { usuarios: jsonData }) // Enviar como objeto con clave 'usuarios'
                 .then(response => {
                     console.log("✅ Usuarios guardados:", response.data);
                     obtenerUsuarios();
