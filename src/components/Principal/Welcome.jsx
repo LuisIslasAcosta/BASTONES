@@ -56,7 +56,7 @@ const WelcomeMessage = () => {
 
     const saveLocation = async (usuarioId, latitude, longitude) => {
         try {
-            const response = await fetch("http://localhost:5000/api/ubicaciones", {
+            const response = await fetch("https://3.12.166.140/api/ubicaciones", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
