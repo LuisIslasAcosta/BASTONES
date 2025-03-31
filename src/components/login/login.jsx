@@ -7,7 +7,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setUsuario({ ...usuario, [e.target.name]: e.target.value });
@@ -15,23 +14,22 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
-
-    if (!usuario.email || !usuario.password) {
-      setError("Por favor, ingresa tu correo y contraseña.");
-      setLoading(false);
-      return;
-    }
-
+    setError(""); // Limpiar error previo
+  
     try {
-      const response = await axios.post("https://18.216.27.227/usuario/login", usuario);
-
+      const response = await axios.post("https://18.216.27.227/usuario/login", usuario, {
+        httpsAgent: new https.Agent({ rejectUnauthorized: false })
+      });
+      
+      console.log(response.data); // Verifica la respuesta del servidor.
       if (response.status === 200 && response.data.message === "Login exitoso") {
         alert("Inicio de sesión exitoso");
+        
+        // Almacenar el token y los datos del usuario con las claves correctas
         localStorage.setItem("token", response.data.access_token);
-        localStorage.setItem("role", response.data.usuario.rol_nombre);
+        localStorage.setItem("role", response.data.usuario.rol_nombre); // Guardamos el rol directamente
 
+        // Verificar si el rol es admin y redirigir
         const rol = response.data.usuario.rol_nombre;
         if (rol === "admin") {
           navigate("/DashboardAdmin");
@@ -41,17 +39,10 @@ const Login = () => {
       } else {
         setError("Error: No se obtuvo una respuesta válida del servidor.");
       }
+
     } catch (error) {
-      if (error.response) {
-        setError(error.response.data.message || "Error desconocido del servidor.");
-      } else if (error.request) {
-        setError("No se pudo conectar con el servidor. Inténtalo de nuevo más tarde.");
-      } else {
-        setError("Ocurrió un error. Por favor, inténtalo de nuevo.");
-      }
+      setError("Hubo un error al iniciar sesión. Verifica tus credenciales.");
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -65,27 +56,25 @@ const Login = () => {
       <form onSubmit={handleSubmit} className="login-form">
         <h1>Login</h1>
         {error && <p className="error-message">{error}</p>}
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={usuario.email}
-          onChange={handleChange}
-          required
-          className="small-input"
+        <input 
+          type="email" 
+          name="email" 
+          placeholder="Email" 
+          value={usuario.email} 
+          onChange={handleChange} 
+          required 
+          className="small-input" 
         />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={usuario.password}
-          onChange={handleChange}
-          required
-          className="small-input"
+        <input 
+          type="password" 
+          name="password" 
+          placeholder="Password" 
+          value={usuario.password} 
+          onChange={handleChange} 
+          required 
+          className="small-input" 
         />
-        <button type="submit" disabled={loading}>
-          {loading ? "Cargando..." : "Iniciar sesión"}
-        </button>
+        <button type="submit">Iniciar sesión</button>
       </form>
       <div className="button-group">
         <button onClick={() => navigate("/")} className="register-button">
