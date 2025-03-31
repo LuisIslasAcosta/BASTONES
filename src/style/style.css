@@ -1,6 +1,6 @@
 body {
-    background: linear-gradient(135deg, #121212, #1e1e1e);
-    color: #e0e0e0;
+    background: linear-gradient(135deg, #e0e0e0, #f4f4f4); /* Fondo gris claro con un toque de gradiente */
+    color: #444; /* Texto en gris oscuro */
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
@@ -14,12 +14,18 @@ body {
 .login-container {
     display: flex;
     align-items: center;
-    background: #1e1e1e;
-    padding: 35px;
-    border-radius: 12px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-    max-width: 800px;
+    background: #f6f6f6; /* Gris claro para evitar el blanco puro */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1); /* Suave sombra */
+    max-width: 900px;
     width: 100%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.login-container:hover {
+    transform: scale(1.02); /* Animación sutil */
+    background-color: #ededed; /* Cambia ligeramente al pasar el cursor */
 }
 
 /* Contenido dentro del contenedor */
@@ -38,62 +44,66 @@ body {
 }
 
 .image-container h2 {
-    color: #ffffff;
-    margin-bottom: 10px;
+    color: #555; /* Texto gris ligeramente más oscuro */
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
 .login-image {
-    width: 250px;
+    width: 260px;
     height: auto;
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Suave sombra */
 }
 
 /* Línea divisora */
 .divider {
     width: 2px;
-    height: 250px;
-    background-color: #444;
+    height: 300px;
+    background-color: #ccc; /* Gris mediano */
     margin: 0 20px;
     border-radius: 5px;
 }
 
 /* Estilo del formulario */
 .login-form {
-    background: #1e1e1e;
-    padding: 20px;
-    border-radius: 12px;
+    background: #ffffff; /* Blanco sutil con una sombra que contrasta */
+    padding: 25px;
+    border-radius: 15px;
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Suave sombra */
 }
 
 /* Títulos */
 h1 {
-    color: #ffffff;
+    color: #333; /* Títulos en gris oscuro */
     text-align: center;
-    font-weight: 600;
-    margin-bottom: 20px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    font-size: 28px;
+    letter-spacing: 1px;
 }
 
 /* Inputs */
 input {
     width: 100%;
     padding: 14px;
-    margin: 10px 0;
-    border-radius: 6px;
-    border: 1px solid #333;
-    background-color: #2b2b2b;
-    color: #e0e0e0;
-    transition: 0.3s ease-in-out;
+    margin: 12px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc; /* Borde gris suave */
+    background-color: #f9f9f9; /* Fondo ligeramente grisáceo */
+    color: #444;
+    transition: all 0.3s ease;
     font-size: 16px;
 }
 
-/* Efecto al enfocar input */
 input:focus {
-    border-color: #00aaff;
-    box-shadow: 0px 0px 6px rgba(0, 170, 255, 0.5);
+    border-color: #00aaff; /* Acento azul brillante */
+    box-shadow: 0px 0px 8px rgba(0, 170, 255, 0.3);
     outline: none;
 }
 
@@ -103,167 +113,133 @@ button {
     padding: 14px;
     font-size: 16px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s ease-in-out;
-    margin-top: 12px;
+    margin-top: 15px;
 }
 
 /* Botón principal */
 button[type="submit"] {
-    background: linear-gradient(135deg, #00aaff, #0077cc);
+    background: linear-gradient(135deg, #000000, #0077cc); /* Azul vibrante */
     color: white;
+    box-shadow: 0px 4px 8px rgba(0, 170, 255, 0.2);
 }
 
 button[type="submit"]:hover {
-    background: linear-gradient(135deg, #0077cc, #005599);
+    background: linear-gradient(135deg, #0077cc, #005599); /* Azul más intenso */
 }
 
 /* Botón secundario */
 button:last-child {
-    background-color: transparent;
-    border: 2px solid #00aaff;
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid #00aaff;
     color: #00aaff;
 }
 
 button:last-child:hover {
-    background-color: rgba(0, 170, 255, 0.2);
-    border-color: #0077cc;
-    color: #0077cc;
+    background-color: rgba(0, 170, 255, 0.1);
 }
 
+/* Paginación */
 .pagination {
     display: flex;
-    justify-content: center;  /* Centra la paginación */
-    align-items: center;      /* Alinea los elementos verticalmente */
-    gap: 10px;                /* Espacio entre los elementos de la paginación */
-    margin-top: 20px;         /* Margen superior para separar la paginación del contenido */
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
 }
 
 .page-link {
     cursor: pointer;
-    margin: 0 5px;
+    padding: 8px 12px;
     font-size: 16px;
+    border: 1px solid #ddd; /* Bordes grises */
+    border-radius: 6px;
+    background-color: #f6f6f6; /* Fondo ligeramente grisáceo */
+    color: #444;
+    transition: all 0.3s ease-in-out;
+}
+
+.page-link:hover {
+    background-color: #e0e0e0; /* Fondo más oscuro */
 }
 
 .active {
     font-weight: bold;
-    color: rgb(255, 255, 255);
+    color: #0077cc; /* Azul fuerte */
 }
 
-.dots {
-    margin: 0 5px;
-    font-size: 16px;
-    color: #999;
-}
-
-/* Estilo general para la tabla */
+/* Tabla */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: #333;  /* Fondo oscuro para la tabla */
-    color: white;  /* Texto blanco para todo el contenido */
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-/* Estilo para las cabeceras de la tabla */
 th {
-    background-color: #444;  /* Color de fondo más oscuro para las cabeceras */
-    color: white;             /* Texto blanco */
-    padding: 10px;
+    background-color: #f3f3f3; /* Cabeceras en gris claro */
+    color: #333;
+    padding: 12px;
     text-align: left;
     font-size: 16px;
 }
 
-/* Estilo para las celdas de la tabla */
 td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #555;  /* Línea de separación oscura */
+    border-bottom: 1px solid #eee; /* Líneas suaves */
     font-size: 14px;
 }
 
-/* Estilo para las filas impares */
 tr:nth-child(odd) {
-    background-color: #2c2c2c;  /* Color de fondo más oscuro para filas impares */
+    background-color: #f7f7f7; /* Gris claro */
 }
 
-/* Estilo para las filas pares */
 tr:nth-child(even) {
-    background-color: #444;  /* Color de fondo más claro para filas pares */
+    background-color: #ffffff;
 }
 
-/* Estilo cuando se pasa el cursor sobre una fila */
 tr:hover {
-    background-color: #555;  /* Fondo más claro al pasar el mouse */
+    background-color: #f0f0f0; /* Fondo sutil al pasar el mouse */
 }
 
 /* Botón de editar */
 .btn-editar {
-    background-color: #555;  /* Fondo oscuro para el botón */
-    color: rgb(46, 85, 190);             /* Texto blanco */
+    background-color: #0077cc;
+    color: white;
     border: none;
-    padding: 6px 12px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    padding: 8px 16px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
 }
 
 .btn-editar:hover {
-    background-color: #666;  /* Fondo ligeramente más claro cuando se pasa el mouse */
+    background-color: #005599;
 }
 
-/* Estilo para la celda de acción */
-td button {
-    cursor: pointer;
-}
-
-/* Estilos para los botones */
+/* Botón Logout */
 .logout-btn {
-    background-color: rgb(250, 35, 35);  /* Rojo para el botón de cerrar sesión */
+    background-color: #ff6b6b; /* Rojo vibrante */
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 5px;
-    margin-right: 10px;
+    border-radius: 8px;
     transition: background-color 0.3s ease;
 }
 
 .logout-btn:hover {
-    background-color: rgb(116, 28, 28);  /* Rojo más oscuro al pasar el mouse */
+    background-color: #d63636;
 }
 
-.export-btn_excel {
-    background-color: rgb(41, 190, 41);  /* Verde para el botón de exportar a Excel */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.export-btn_excel:hover {
-    background-color: rgb(21, 97, 21);  /* Verde más oscuro al pasar el mouse */
-}
-
-.import-btn {
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-    width: 97%;
-}
-
-.search-input {
-    width: 96%;
-}
 
 /* Estilos para el contenedor del gráfico */
 .grafico-container {

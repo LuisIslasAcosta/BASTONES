@@ -1,47 +1,34 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import "../../style/style.css";
 
 const AgregarBaston = () => {
-    const navigate = useNavigate();
-    const [usuarioId, setUsuarioId] = useState("");
-    const [modelo, setModelo] = useState("");
-    const [fechaAsignacion, setFechaAsignacion] = useState("");
+    const [nombre, setNombre] = useState(""); 
     const [error, setError] = useState("");
-    const [showForm, setShowForm] = useState(false); // Estado para mostrar/ocultar el formulario
+    const [mensajeExito, setMensajeExito] = useState("");
+    const [showForm, setShowForm] = useState(false);  
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Validar campos
-        if (!usuarioId || !modelo || !fechaAsignacion) {
-            setError("Todos los campos son obligatorios");
+        if (!nombre) {
+            setError("El nombre del bastón es obligatorio");
             return;
         }
 
-        // Obtener el token del localStorage
-        const token = localStorage.getItem("token");
-
-        // Verificar si hay un token
-        if (!token) {
-            setError("No se ha encontrado un token válido. Inicie sesión.");
-            return;
-        }
-
-        // Enviar solicitud POST para crear el bastón
-        axios.post("http://localhost:3000/api/bastones", {
-            usuario_id: usuarioId,
-            modelo: modelo,
-            fecha_asignacion: fechaAsignacion
+        axios.post("http://localhost:5000/bastones/create_baston", {
+            nombre: nombre 
         }, {
             headers: {
-                Authorization: `Bearer ${token}`  // Agregar el token al header
             }
         })
         .then(response => {
             console.log("Bastón creado:", response.data);
-            navigate("/bastones"); // Redirigir a la lista de bastones
+            setMensajeExito("¡Bastón creado con éxito!");
+            
+            setTimeout(() => {
+                window.location.reload(); 
+            }, 2000);  
         })
         .catch(error => {
             console.error("Error al crear el bastón:", error);
@@ -52,45 +39,25 @@ const AgregarBaston = () => {
     return (
         <div>
             <button onClick={() => setShowForm(!showForm)}>
-                {showForm ? "Regresar a Menu" : "Agregar un Baston"}
+                {showForm ? "Regresar a Menu" : "Agregar un Bastón"}
             </button>
             {showForm && (
                 <form onSubmit={handleSubmit}>
                     <h1>Agregar Bastón</h1>
                     {error && <p className="error">{error}</p>}
+                    {mensajeExito && <p className="exito">{mensajeExito}</p>}  
                     <div>
-                        <label htmlFor="usuarioId">Usuario ID</label>
+                        <label htmlFor="nombre">Nombre del Bastón</label>
                         <input
                             type="text"
-                            id="usuarioId"
-                            value={usuarioId}
-                            onChange={(e) => setUsuarioId(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="modelo">Modelo</label>
-                        <input
-                            type="text"
-                            id="modelo"
-                            value={modelo}
-                            onChange={(e) => setModelo(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="fechaAsignacion">Fecha de Asignación</label>
-                        <input
-                            type="date"
-                            id="fechaAsignacion"
-                            value={fechaAsignacion}
-                            onChange={(e) => setFechaAsignacion(e.target.value)}
+                            id="nombre"
+                            value={nombre}
+                            onChange={(e) => setNombre(e.target.value)} 
                         />
                     </div>
                     <button type="submit">Agregar Bastón</button>
-                    
                 </form>
-                
             )}
-            
         </div>
     );
 };

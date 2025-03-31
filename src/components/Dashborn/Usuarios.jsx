@@ -16,7 +16,7 @@ const Usuarios = () => {
     }, []);
 
     const obtenerUsuarios = () => {
-        axios.get("http://localhost:3000/api/usuarios/")
+        axios.get("http://127.0.0.1:5000/usuario/obtener")
             .then(response => setUsuarios(response.data))
             .catch(error => console.error("Error al obtener usuarios:", error));
     };
@@ -70,7 +70,7 @@ const Usuarios = () => {
     const irAEditar = (id) => navigate(`/usuarios/editar/${id}`);
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:3000/api/usuarios/${id}`)
+        axios.delete(`http://127.0.0.1:5000/usuario/obtener${id}`)
             .then(() => obtenerUsuarios())
             .catch(error => {
                 console.error("Error al eliminar el usuario:", error);
