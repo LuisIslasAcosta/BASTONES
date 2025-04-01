@@ -96,7 +96,6 @@ const Usuarios = () => {
                 <table className="usuarios-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Teléfono</th>
@@ -107,7 +106,6 @@ const Usuarios = () => {
                 <tbody>
                     {currentUsers.map((user, index) => (
                         <tr key={user.id || index}>
-                            <td>{user.id}</td>
                             <td>{user.nombre}</td>
                             <td>{user.email}</td>
                             <td>{user.telefono}</td>
