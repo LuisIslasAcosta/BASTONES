@@ -11,7 +11,7 @@ const ESP32 = () => {
 
   const fetchDatos = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/distancia");
+      const response = await axios.get("https://3.12.166.140/distancia");
       const nuevosDatos = response.data;
       setDatos(nuevosDatos);
 
