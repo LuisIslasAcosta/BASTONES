@@ -8,12 +8,25 @@ import "../../style/style.css";
 const ESP32 = () => {
   const [distancia, setDistancia] = useState(null);
   const [error, setError] = useState(null);
+  const [alertaMostrada, setAlertaMostrada] = useState(false); // Estado para controlar la alerta
 
   // Función para obtener la distancia del ESP32
   const fetchDistancia = async () => {
     try {
       const response = await axios.get("https://3.12.166.140/distancia");
-      setDistancia(response.data.distancia); // Guardamos la distancia en el estado
+      const nuevaDistancia = response.data.distancia;
+      setDistancia(nuevaDistancia);
+
+      // 🚨 ALERTA cuando la distancia es menor o igual a 50 cm
+      if (nuevaDistancia <= 50 && !alertaMostrada) {
+        window.alert("⚠ ¡Precaución! Obstáculo detectado a menos de 50 cm.");
+        setAlertaMostrada(true); // Evitar que la alerta se repita innecesariamente
+      }
+
+      // 🔄 REFRESCAR la pantalla cuando la distancia es mayor a 50 cm
+      if (nuevaDistancia > 50 && alertaMostrada) {
+        window.location.reload(); // Recargar la página
+      }
     } catch (err) {
       console.error("Error al obtener la distancia:", err);
       setError("Error al obtener la distancia");
@@ -22,7 +35,7 @@ const ESP32 = () => {
 
   // Usamos useEffect para obtener la distancia cada 2 segundos
   useEffect(() => {
-    fetchDistancia();  // Llamamos a la función para obtener la distancia
+    fetchDistancia(); // Llamamos a la función para obtener la distancia
     const intervalo = setInterval(fetchDistancia, 2000); // Obtener la distancia cada 2 segundos
 
     return () => clearInterval(intervalo); // Limpiar intervalo cuando el componente se desmonte
