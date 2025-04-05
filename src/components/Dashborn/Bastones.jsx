@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AgregarBastones from "./BastonesAg";
-import "../../style/style.css";
+import Asignaciones from "./UsuariosList";
+import "../../style/bastones.css";
 import AsignarBaston from "./AsignarBaston";
 
 const Bastones = () => {
@@ -16,7 +17,7 @@ const Bastones = () => {
 
     const fetchBastones = async () => {
         try {
-            const response = await axios.get("https://3.12.166.140/bastones/bastones", {
+            const response = await axios.get("https://3.143.223.115/bastones/bastones", {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -31,7 +32,7 @@ const Bastones = () => {
     const handleDelete = async (id) => {
         try {
             // Eliminar bastón
-            await axios.delete(`https://3.12.166.140/bastones/${id}`, {
+            await axios.delete(`https://3.143.223.115/bastones/${id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -79,7 +80,10 @@ const Bastones = () => {
                 <h2>Asignar Bastones a Usuarios</h2>
                 <AsignarBaston />
             </div>
-
+            <div className="card bastones-card">
+                <h2>Bastones Asignados a Usuarios</h2>
+                <Asignaciones />
+            </div>
             <button onClick={() => navigate("/DashboardAdmin")} className="back-btn">
                 Regresar
             </button>

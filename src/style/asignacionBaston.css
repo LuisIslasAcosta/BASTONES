@@ -1,0 +1,153 @@
+/* Asignaciones Container */
+.asignaciones-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.asignaciones-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Actions Section */
+.asignaciones-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 60%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: border 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border: 1px solid #3498db;
+}
+
+.export-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.export-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Table Container */
+.asignaciones-table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.asignaciones-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.asignaciones-table th,
+.asignaciones-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.asignaciones-table th {
+    background-color: #2c3e50;
+    color: white;
+    font-weight: bold;
+}
+
+.asignaciones-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.asignaciones-table tbody tr:hover {
+    background-color: #e3f2fd;
+}
+
+/* No Data Section */
+.no-data {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #7f8c8d;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination-btn {
+    padding: 8px 15px;
+    font-size: 1rem;
+    margin: 0 5px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-btn:hover {
+    background-color: #2980b9;
+}
+
+.pagination-btn.active {
+    background-color: #1abc9c;
+}
+
+.pagination-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .asignaciones-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .export-btn {
+        width: 100%;
+    }
+
+    .asignaciones-table th,
+    .asignaciones-table td {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .pagination-btn {
+        padding: 6px 12px;
+    }
+}

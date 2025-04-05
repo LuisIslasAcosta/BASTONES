@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../../style/style.css";
+import "../../style/usuario.css";
+import 'font-awesome/css/font-awesome.min.css'; // Importar Font Awesome
 
 const ESP32 = () => {
   const [datos, setDatos] = useState({ distancia: null, ir1: null, ir2: null });
@@ -11,7 +12,7 @@ const ESP32 = () => {
 
   const fetchDatos = async () => {
     try {
-      const response = await axios.get("https://3.12.166.140/distancia");
+      const response = await axios.get("https://3.143.223.115/distancia");
       const nuevosDatos = response.data;
       setDatos(nuevosDatos);
 
@@ -86,6 +87,7 @@ const ESP32 = () => {
 const WelcomeMessage = () => {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState(null);
+  const [sidebarVisible, setSidebarVisible] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -103,13 +105,36 @@ const WelcomeMessage = () => {
     navigate("/login");
   };
 
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
+
+  const closeSidebar = () => {
+    setSidebarVisible(false);
+  };
+
   return (
     <div>
-      <h1>Bienvenido a nuestro sistema para bastones inteligentes {usuario ? usuario : ""}!</h1>
-      <button onClick={handleLogout} className="logout-btn">
-        Cerrar sesión
-      </button>
-      <ESP32 />
+      <button onClick={toggleSidebar} className="toggle-btn">☰</button>
+
+      <div className={`sidebar ${sidebarVisible ? "visible" : ""}`}>
+        <button onClick={closeSidebar} className="close-btn">X</button> {/* Botón de cerrar */}
+        <div className="menu-item">
+          
+        </div>
+        <div className="menu-item">
+          
+        </div>
+        <button onClick={handleLogout} className="logout-btn">
+          <i className="fa fa-sign-out"></i> {/* Ícono de cerrar sesión */}
+          Cerrar sesión
+        </button>
+      </div>
+
+      <div className={`main-content ${sidebarVisible ? "shifted" : ""}`}>
+        <h1>Bienvenido a nuestro sistema para bastones inteligentes {usuario ? usuario : ""}!</h1>
+        <ESP32 />
+      </div>
     </div>
   );
 };

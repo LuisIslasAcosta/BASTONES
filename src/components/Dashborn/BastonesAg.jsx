@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import "../../style/style.css";
+import "../../style/agregar-baston.css";
+
 
 const AgregarBaston = () => {
     const [nombre, setNombre] = useState(""); 
@@ -16,7 +17,7 @@ const AgregarBaston = () => {
             return;
         }
 
-        axios.post("https://3.12.166.140/bastones/create_baston", {
+        axios.post("https://3.143.223.115/bastones/create_baston", {
             nombre: nombre 
         }, {
             headers: {

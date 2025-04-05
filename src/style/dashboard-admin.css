@@ -1,0 +1,189 @@
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f1f1f1;
+    color: #333;
+  }
+  
+  .dashboard-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+/* Estilo para los iconos */
+.sidebar .menu-item button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #005fa3;
+    border: none;
+    width: 100%;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    gap: 10px; /* Espaciado entre el icono y el texto */
+}
+
+.sidebar .menu-item button:hover {
+    background-color: #003f72;
+}
+
+/* Iconos de FontAwesome */
+.sidebar .menu-item button .fa {
+    font-size: 1.25rem; /* Tamaño del icono */
+    transition: transform 0.2s ease-in-out;
+}
+
+.sidebar .menu-item button:hover .fa {
+    transform: scale(1.2); /* Efecto de aumento al pasar el mouse */
+}
+
+  
+  .toggle-btn {
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: #0077cc;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1010;
+  }
+  
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 2rem;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .main-content.shifted {
+    margin-left: 250px;
+  }
+  
+  /* Resto de los estilos */
+  .dashboard-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .dashboard-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #0077cc;
+  }
+  
+  .dashboard-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .navigate-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: #0077cc;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navigate-btn:hover {
+    background-color: #005fa3;
+  }
+  
+  /* Logout Button */
+  .logout-btn {
+    padding: 1rem 2rem;
+    background-color: #e63946;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logout-btn:hover {
+    background-color: #d62c1a;
+  }
+  
+  /* Estilos para la gráfica */
+  .grafico-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .grafico-container:hover {
+    transform: scale(1.02); /* Efecto hover para hacer la gráfica más interactiva */
+  }
+  
+  .grafico-container h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  /* Estilos de bordes y fondo */
+  .grafico-container {
+    border: 2px solid #0077cc;
+    background: linear-gradient(to right, #e6f0ff, #ffffff);
+  }
+  
+  /* Agregar una sombra sutil */
+  .grafico-container {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  

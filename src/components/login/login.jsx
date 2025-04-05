@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../../style/style.css";
+import "../../style/login.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,18 +15,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(""); // Limpiar error previo
-  
+
     try {
-      const response = await axios.post("https://3.12.166.140/usuario/login", usuario);
-      console.log(response.data); // Verifica la respuesta del servidor.
+      const response = await axios.post("https://3.143.223.115/usuario/login", usuario);
+      console.log(response.data);
       if (response.status === 200 && response.data.message === "Login exitoso") {
         alert("Inicio de sesión exitoso");
-        
-        // Almacenar el token y los datos del usuario con las claves correctas
         localStorage.setItem("token", response.data.access_token);
-        localStorage.setItem("role", response.data.usuario.rol_nombre); // Guardamos el rol directamente
+        localStorage.setItem("role", response.data.usuario.rol_nombre);
 
-        // Verificar si el rol es admin y redirigir
         const rol = response.data.usuario.rol_nombre;
         if (rol === "admin") {
           navigate("/DashboardAdmin");
@@ -36,7 +33,6 @@ const Login = () => {
       } else {
         setError("Error: No se obtuvo una respuesta válida del servidor.");
       }
-
     } catch (error) {
       setError("Hubo un error al iniciar sesión. Verifica tus credenciales.");
       console.error(error);
@@ -53,31 +49,11 @@ const Login = () => {
       <form onSubmit={handleSubmit} className="login-form">
         <h1>Login</h1>
         {error && <p className="error-message">{error}</p>}
-        <input 
-          type="email" 
-          name="email" 
-          placeholder="Email" 
-          value={usuario.email} 
-          onChange={handleChange} 
-          required 
-          className="small-input" 
-        />
-        <input 
-          type="password" 
-          name="password" 
-          placeholder="Password" 
-          value={usuario.password} 
-          onChange={handleChange} 
-          required 
-          className="small-input" 
-        />
+        <input type="email" name="email" placeholder="Email" value={usuario.email} onChange={handleChange} required className="small-input" />
+        <input type="password" name="password" placeholder="Password" value={usuario.password} onChange={handleChange} required className="small-input" />
         <button type="submit">Iniciar sesión</button>
+        <button type="button" onClick={() => navigate("/")} className="secondary-button">Crear Cuenta</button>
       </form>
-      <div className="button-group">
-        <button onClick={() => navigate("/")} className="register-button">
-          Crear Cuenta
-        </button>
-      </div>
     </div>
   );
 };

@@ -9,6 +9,7 @@ import UsuariosEdit from "./components/Dashborn/UsuariosEdit";
 import Bastones from "./components/Dashborn/Bastones";
 import AsignarBaston from "./components/Dashborn/AsignarBaston";
 import Usuarios from "./components/Dashborn/Usuarios"; 
+import Asignaciones from "./components/Dashborn/UsuariosList";
 import Ubicaciones from "./components/Principal/Ubicaciones";
 import ProtectedRoute from "./components/loginadmin/ProtectedRoute";
 
@@ -21,7 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/usuarios/editar/:id" element={<UsuariosEdit />} />
       <Route path="/bastones" element={<Bastones />} />
       <Route path="/usuarios" element={<Usuarios />} /> {/* Nueva ruta para Usuarios */}
-        
+      <Route path="/Asignaciones" element={<Asignaciones />} /> 
       {/* Ruta protegida para DashboardAdmin */}
       <Route
         path="/DashboardAdmin"
@@ -33,7 +34,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       />
       <Route path="/Welcome" element={<Welcome />} />
       <Route path="/Welcome" element={<AsignarBaston />} />
-      <Route path="/Ubicaciones" element={<Ubicaciones />} /> 
+      <Route path="/Ubicaciones" element={<Ubicaciones />} />
     </Routes>
   </BrowserRouter>
 );

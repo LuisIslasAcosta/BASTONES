@@ -1,0 +1,257 @@
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+}
+
+/* Contenedor principal */
+.usuarios-container {
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    margin: 2rem auto;
+    max-width: 1150px;
+    width: 95%;
+}
+
+/* Título */
+.usuarios-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Acciones */
+.usuarios-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.search-input {
+    padding: 0.5rem 1rem;
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    width: 280px;
+    font-size: 1rem;
+}
+
+.search-input:focus {
+    border-color: #4A90E2;
+    outline: none;
+}
+
+.upload-excel-btn, .export-btn {
+    background-color: #4A90E2;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.upload-excel-btn:hover, .export-btn:hover {
+    background-color: #357ABD;
+}
+
+/* Contenedor de la tabla para scroll en móviles */
+.usuarios-table-container {
+    overflow-x: auto;
+    width: 100%;
+}
+
+/* Tabla */
+.usuarios-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.usuarios-table th, .usuarios-table td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e1e4e8;
+    white-space: nowrap;
+}
+
+.usuarios-table th {
+    background-color: #f0f2f5;
+    color: #4A90E2;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.usuarios-table td {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/* Botones de la tabla */
+.edit-btn, .delete-btn {
+    border: none;
+    border-radius: 6px;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    transition: background-color 0.2s ease;
+}
+
+.edit-btn {
+    background-color: #f1c40f;
+    color: #fff;
+}
+
+.edit-btn:hover {
+    background-color: #d4ac0d;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    margin-left: 0.5rem;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Sin usuarios */
+.no-users {
+    text-align: center;
+    color: #999;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+
+/* Paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.pagination button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    border: 1.5px solid #dcdfe2;
+    background: #fff;
+    color: #333;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.pagination button:hover {
+    background-color: #f4f6f9;
+}
+
+.pagination button.active {
+    background-color: #4A90E2;
+    color: #fff;
+    font-weight: bold;
+}
+
+.pagination button.active:hover {
+    background-color: #357ABD;
+}
+
+/* Botón volver */
+.back-btn {
+    display: block;
+    margin: 2rem auto 0;
+    background-color: #4A90E2;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.back-btn:hover {
+    background-color: #357ABD;
+}
+
+/* Responsive: Tablet */
+@media (max-width: 768px) {
+    .usuarios-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input,
+    .upload-excel-btn,
+    .export-btn {
+        width: 100%;
+    }
+
+    .usuarios-table th,
+    .usuarios-table td {
+        padding: 0.6rem;
+    }
+}
+
+/* Responsive: Móvil */
+@media (max-width: 480px) {
+    .usuarios-title {
+        font-size: 1.6rem;
+    }
+
+    .search-input {
+        font-size: 0.9rem;
+        width: 100%;
+    }
+
+    .usuarios-table-container {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .usuarios-table {
+        font-size: 0.85rem;
+        min-width: 100%;
+    }
+
+    .usuarios-table th,
+    .usuarios-table td {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.6rem;
+    }
+
+    .pagination button {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.7rem;
+    }
+
+    .back-btn {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+    }
+}

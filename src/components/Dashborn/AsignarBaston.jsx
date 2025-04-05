@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import "../../style/asignarBaston.css";
 
 const AsignarBaston = () => {
     const [usuarioId, setUsuarioId] = useState("");
@@ -9,16 +10,15 @@ const AsignarBaston = () => {
     const [error, setError] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
-    // Cargar usuarios y bastones cuando el componente se monte
     useEffect(() => {
         const fetchUsuarios = async () => {
             try {
-                const response = await axios.get("https://3.12.166.140/usuario/obtener", {
+                const response = await axios.get("https://3.143.223.115/usuario/obtener", {
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`, // Si es necesario, incluir el token
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
                     }
                 });
-                setUsuarios(response.data); // Guardamos los usuarios
+                setUsuarios(response.data);
             } catch (error) {
                 setError("Error al obtener los usuarios.");
                 console.error(error);
@@ -27,12 +27,12 @@ const AsignarBaston = () => {
 
         const fetchBastones = async () => {
             try {
-                const response = await axios.get("https://3.12.166.140/bastones/bastones", {
+                const response = await axios.get("https://3.143.223.115/bastones/bastones", {
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`, // Si es necesario, incluir el token
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
                     }
                 });
-                setBastones(response.data); // Guardamos los bastones
+                setBastones(response.data);
             } catch (error) {
                 setError("Error al obtener los bastones.");
                 console.error(error);
@@ -57,31 +57,28 @@ const AsignarBaston = () => {
         };
 
         try {
-            await axios.post("https://3.12.166.140/bastones/asignar_baston", data, {
+            await axios.post("https://3.143.223.115/bastones/asignar_baston", data, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,  // Si necesitas token de autorización
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
                 }
             });
             
-            setSuccessMessage("Bastón asignado con éxito.");
-            setError(""); // Limpiar cualquier error previo
+            setSuccessMessage("✅ Bastón asignado con éxito.");
+            setError("");
         } catch (error) {
-            setSuccessMessage(""); // Limpiar cualquier mensaje de éxito previo
-            setError("Hubo un error al asignar el bastón. Intenta de nuevo.");
+            setSuccessMessage("");
+            setError("❌ Hubo un error al asignar el bastón. Intenta de nuevo.");
             console.error(error);
         }
     };
 
     return (
-        <div>
-            <h2>Asignar Bastón</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
+        <div className="asignar-container">
+            <h2 className="asignar-title">Asignar Bastón</h2>
+            <form onSubmit={handleSubmit} className="asignar-form">
+                <div className="form-group">
                     <label>Usuario:</label>
-                    <select
-                        value={usuarioId}
-                        onChange={(e) => setUsuarioId(e.target.value)}
-                    >
+                    <select value={usuarioId} onChange={(e) => setUsuarioId(e.target.value)}>
                         <option value="">Selecciona un usuario</option>
                         {usuarios.map((usuario) => (
                             <option key={usuario.id} value={usuario.id}>
@@ -90,12 +87,9 @@ const AsignarBaston = () => {
                         ))}
                     </select>
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Bastón:</label>
-                    <select
-                        value={bastonId}
-                        onChange={(e) => setBastonId(e.target.value)}
-                    >
+                    <select value={bastonId} onChange={(e) => setBastonId(e.target.value)}>
                         <option value="">Selecciona un bastón</option>
                         {bastones.map((baston) => (
                             <option key={baston.id} value={baston.id}>
@@ -104,10 +98,10 @@ const AsignarBaston = () => {
                         ))}
                     </select>
                 </div>
-                <button type="submit">Asignar Bastón</button>
+                <button type="submit" className="asignar-btn">Asignar Bastón</button>
             </form>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+            {error && <p className="mensaje error">{error}</p>}
+            {successMessage && <p className="mensaje success">{successMessage}</p>}
         </div>
     );
 };
