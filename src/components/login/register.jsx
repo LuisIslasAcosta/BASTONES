@@ -40,7 +40,6 @@ const Register = () => {
         <h2>Bienvenido a Technology Vision</h2>
         <img src="/img/logo.png" alt="Register" className="login-image" />
       </div>
-      <div className="divider"></div>
       <form onSubmit={handleSubmit} className="login-form">
         <h1>Crear Nuevo Usuario</h1>
         <input type="text" name="nombre" placeholder="Nombre" value={registro.nombre} onChange={handleChange} required className="small-input" />

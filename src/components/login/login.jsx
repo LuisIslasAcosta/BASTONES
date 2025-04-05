@@ -45,7 +45,6 @@ const Login = () => {
         <h2>Bienvenido a Technology Vision</h2>
         <img src="/img/logo.png" alt="Login" className="login-image" />
       </div>
-      <div className="divider"></div>
       <form onSubmit={handleSubmit} className="login-form">
         <h1>Login</h1>
         {error && <p className="error-message">{error}</p>}
