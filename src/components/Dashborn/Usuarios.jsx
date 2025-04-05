@@ -16,7 +16,7 @@ const Usuarios = () => {
     }, []);
 
     const obtenerUsuarios = () => {
-        axios.get("https://3.143.223.115/usuario/obtener")
+        axios.get("https://3.12.166.140/usuario/obtener")
             .then(response => setUsuarios(response.data))
             .catch(error => console.error("Error al obtener usuarios:", error));
     };
@@ -66,7 +66,7 @@ const Usuarios = () => {
     const irAEditar = (id) => navigate(`/usuarios/editar/${id}`);
 
     const handleDelete = (id) => {
-        axios.delete(`https://3.143.223.115/usuario/obtener${id}`)
+        axios.delete(`https://3.12.166.140/usuario/obtener${id}`)
             .then(() => obtenerUsuarios())
             .catch(error => {
                 console.error("Error al eliminar el usuario:", error);

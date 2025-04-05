@@ -13,7 +13,7 @@ const Ubicaciones = () => {
   // Función para obtener las ubicaciones desde la API
   const obtenerUbicaciones = async () => {
     try {
-      const response = await axios.get("https://3.143.223.115/ubicaciones");
+      const response = await axios.get("https://3.12.166.140/ubicaciones");
       setLocations(response.data); // Guardar las ubicaciones obtenidas en el estado
     } catch (error) {
       setError("Error al obtener las ubicaciones.");
@@ -41,7 +41,7 @@ const Ubicaciones = () => {
 
           // Crear la nueva ubicación mediante la API
           try {
-            await axios.post("https://3.143.223.115/ubicaciones", {
+            await axios.post("https://3.12.166.140/ubicaciones", {
               usuario_id: usuario.id, // Asegúrate de tener el ID del usuario
               latitud: latitude,
               longitud: longitude,

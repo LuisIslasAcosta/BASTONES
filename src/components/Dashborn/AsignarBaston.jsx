@@ -13,7 +13,7 @@ const AsignarBaston = () => {
     useEffect(() => {
         const fetchUsuarios = async () => {
             try {
-                const response = await axios.get("https://3.143.223.115/usuario/obtener", {
+                const response = await axios.get("https://3.12.166.140/usuario/obtener", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     }
@@ -27,7 +27,7 @@ const AsignarBaston = () => {
 
         const fetchBastones = async () => {
             try {
-                const response = await axios.get("https://3.143.223.115/bastones/bastones", {
+                const response = await axios.get("https://3.12.166.140/bastones/bastones", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     }
@@ -57,7 +57,7 @@ const AsignarBaston = () => {
         };
 
         try {
-            await axios.post("https://3.143.223.115/bastones/asignar_baston", data, {
+            await axios.post("https://3.12.166.140/bastones/asignar_baston", data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 }

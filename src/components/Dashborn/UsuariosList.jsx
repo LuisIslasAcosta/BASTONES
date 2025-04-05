@@ -14,7 +14,7 @@ const Asignaciones = () => {
     }, []);
 
     const obtenerAsignaciones = () => {
-        axios.get("https://3.143.223.115/bastones/bastones_usuarios")
+        axios.get("https://3.12.166.140/bastones/bastones_usuarios")
             .then(response => setAsignaciones(response.data))
             .catch(error => console.error("Error al obtener asignaciones:", error));
     };

@@ -20,7 +20,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://3.143.223.115/usuario/", registro);
+      const response = await axios.post("https://3.12.166.140/usuario/", registro);
       alert("Usuario registrado exitosamente");
       console.log(response.data);
     } catch (error) {
@@ -33,6 +33,7 @@ const Register = () => {
       }
     }
   };
+
 
   return (
     <div className="login-container">
