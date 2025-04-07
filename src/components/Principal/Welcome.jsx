@@ -1,58 +1,41 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../../style/usuario.css";
-import 'font-awesome/css/font-awesome.min.css'; // Importar Font Awesome
+import "../../style/style.css";
 
 const ESP32 = () => {
-  const [datos, setDatos] = useState({ distancia: null, ir1: null, ir2: null });
+  const [distancia, setDistancia] = useState(null); // Estado de la distancia
+  const [alertaEmitida, setAlertaEmitida] = useState(false); // Control de emisión de alerta
   const [error, setError] = useState(null);
-  const [alertaMostrada, setAlertaMostrada] = useState(false);
-  const [instruccion, setInstruccion] = useState(""); // Estado para la instrucción de voz
+  const [contadorAlertas, setContadorAlertas] = useState(0); // Contador de alertas emitidas
+
+  const emitirVoz = (mensaje) => {
+    const speech = new SpeechSynthesisUtterance(mensaje);
+    window.speechSynthesis.speak(speech);
+  };
 
   const fetchDatos = async () => {
     try {
-      const response = await axios.get("https://3.12.166.140/distancia");
+      const response = await axios.get("https://3.12.166.140/distancia"); // Ajusta si tu IP cambió
       const nuevosDatos = response.data;
-      setDatos(nuevosDatos);
 
-      if (nuevosDatos.distancia <= 50 && !alertaMostrada) {
-        // Emitir mensaje de voz para alerta
-        const mensaje = new SpeechSynthesisUtterance("⚠ ¡Precaución! Obstáculo detectado a menos de 50 cm.");
-        window.speechSynthesis.speak(mensaje);
-        setAlertaMostrada(true);
-      }
+      if (nuevosDatos.distancia !== undefined) {
+        setDistancia(nuevosDatos.distancia);
 
-      if (nuevosDatos.distancia > 50 && alertaMostrada) {
-        // Si la distancia es mayor a 50 cm, quitar la alerta
-        setAlertaMostrada(false);
-      }
+        // Si la distancia es menor a 50 cm y no se ha emitido alerta recientemente
+        if (nuevosDatos.distancia < 50 && (!alertaEmitida || contadorAlertas < 2)) {
+          emitirVoz("¡Obstáculo detectado a menos de 50 centímetros!");
+          setAlertaEmitida(true); // Marcar la alerta como emitida
+          setContadorAlertas(contadorAlertas + 1); // Incrementar contador de alertas
+        }
 
-      // Lógica para determinar las instrucciones de voz
-      if (nuevosDatos.ir1 === 1 && nuevosDatos.ir2 === 0) {
-        if (instruccion !== "Girar a la derecha") {
-          setInstruccion("Girar a la derecha");
-          const mensaje = new SpeechSynthesisUtterance("Girar a la derecha");
-          window.speechSynthesis.speak(mensaje);
+        // Resetear la alerta si ya no hay obstáculos cercanos
+        if (nuevosDatos.distancia >= 50) {
+          setAlertaEmitida(false); // Permitir una nueva alerta en caso de que se detecten nuevos obstáculos
+          setContadorAlertas(0); // Reiniciar contador de alertas cuando el obstáculo desaparezca
         }
-      } else if (nuevosDatos.ir2 === 1 && nuevosDatos.ir1 === 0) {
-        if (instruccion !== "Girar a la izquierda") {
-          setInstruccion("Girar a la izquierda");
-          const mensaje = new SpeechSynthesisUtterance("Girar a la izquierda");
-          window.speechSynthesis.speak(mensaje);
-        }
-      } else if (nuevosDatos.ir1 === 1 && nuevosDatos.ir2 === 1) {
-        if (instruccion !== "Sigue derecho") {
-          setInstruccion("Sigue derecho");
-          const mensaje = new SpeechSynthesisUtterance("Sigue derecho");
-          window.speechSynthesis.speak(mensaje);
-        }
-      } else if (nuevosDatos.ir1 === 0 && nuevosDatos.ir2 === 0) {
-        if (instruccion !== "Gira a la izquierda o derecha") {
-          setInstruccion("Gira a la izquierda o derecha");
-          const mensaje = new SpeechSynthesisUtterance("Gira a la izquierda o derecha");
-          window.speechSynthesis.speak(mensaje);
-        }
+      } else {
+        setError("Error: Datos de distancia no válidos.");
       }
     } catch (err) {
       console.error("Error al obtener los datos:", err);
@@ -61,25 +44,16 @@ const ESP32 = () => {
   };
 
   useEffect(() => {
-    fetchDatos();
-    const intervalo = setInterval(fetchDatos, 2000);
-    return () => clearInterval(intervalo);
-  }, [instruccion]); // Agregar 'instruccion' como dependencia
+    fetchDatos(); // Cargar datos iniciales
+    const intervalo = setInterval(fetchDatos, 2000); // Actualizar cada 2 segundos
+    return () => clearInterval(intervalo); // Limpiar intervalo al desmontar
+  }, []);
 
   return (
-    <div>
-      <h1>Datos de Sensores</h1>
-      {error && <p>{error}</p>}
-      {datos.distancia !== null ? (
-        <>
-          <p>Distancia medida: {datos.distancia} cm</p>
-          <p>Sensor IR1: {datos.ir1 === 1 ? "Detectando" : "Libre"}</p>
-          <p>Sensor IR2: {datos.ir2 === 1 ? "Detectando" : "Libre"}</p>
-          {instruccion && <p>{instruccion}</p>} {/* Mostrar la instrucción */}
-        </>
-      ) : (
-        <p>Cargando...</p>
-      )}
+    <div className="sensor-container">
+      <h1>Detección de Obstáculos</h1>
+      {error && <p className="error">{error}</p>}
+      <p>{distancia !== null ? `${distancia} cm` : "Cargando..."}</p>
     </div>
   );
 };
@@ -87,14 +61,18 @@ const ESP32 = () => {
 const WelcomeMessage = () => {
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState(null);
-  const [sidebarVisible, setSidebarVisible] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      const decodedToken = JSON.parse(atob(token.split('.')[1]));
-      setUsuario(decodedToken.nombre);
+      try {
+        const decodedToken = JSON.parse(atob(token.split(".")[1]));
+        setUsuario(decodedToken.nombre);
+      } catch (error) {
+        console.error("Error al decodificar el token:", error);
+        navigate("/login");
+      }
     } else {
       navigate("/login");
     }
@@ -105,36 +83,13 @@ const WelcomeMessage = () => {
     navigate("/login");
   };
 
-  const toggleSidebar = () => {
-    setSidebarVisible(!sidebarVisible);
-  };
-
-  const closeSidebar = () => {
-    setSidebarVisible(false);
-  };
-
   return (
-    <div>
-      <button onClick={toggleSidebar} className="toggle-btn">☰</button>
-
-      <div className={`sidebar ${sidebarVisible ? "visible" : ""}`}>
-        <button onClick={closeSidebar} className="close-btn">X</button> {/* Botón de cerrar */}
-        <div className="menu-item">
-          
-        </div>
-        <div className="menu-item">
-          
-        </div>
-        <button onClick={handleLogout} className="logout-btn">
-          <i className="fa fa-sign-out"></i> {/* Ícono de cerrar sesión */}
-          Cerrar sesión
-        </button>
-      </div>
-
-      <div className={`main-content ${sidebarVisible ? "shifted" : ""}`}>
-        <h1>Bienvenido a nuestro sistema para bastones inteligentes {usuario ? usuario : ""}!</h1>
-        <ESP32 />
-      </div>
+    <div className="welcome-container">
+      <h1>Bienvenido a nuestro sistema para bastones inteligentes, {usuario}!</h1>
+      <button onClick={handleLogout} className="logout-btn">
+        Cerrar sesión
+      </button>
+      <ESP32 />
     </div>
   );
 };
